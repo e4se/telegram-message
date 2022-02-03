@@ -84,8 +84,8 @@ class Message
 
     public function list(array $values): self
     {
-        foreach ($values as $value) {
-            $this->listItem($value[0], $value[1]);
+        foreach ($values as $left => $right) {
+            $this->listItem($left, $right);
         }
         return $this;
     }
