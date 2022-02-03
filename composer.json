@@ -1,0 +1,37 @@
+{
+    "name": "e4se/telegram-message",
+    "description": "Laravel package for telegram message format",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Morozov",
+            "email": "e4se96@gmail.com"
+        },
+        {
+            "name": "Ivan Slyadnev",
+            "email": "ivanslyadnev2015@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "E4se\\TelegramMessage\\": "src/"
+        }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "E4se\\TelegramMessage\\Providers\\TelegramMessageServiceProvider"
+            ],
+            "aliases": {
+                "MessageFormatter": "E4se\\TelegramMessage\\Facades\\MessageFormatter"
+            }
+        }
+    },
+    "require": {
+        "bensampo/laravel-enum": "^4.2"
+    }
+}
