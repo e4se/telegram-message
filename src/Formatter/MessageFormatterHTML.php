@@ -15,8 +15,9 @@ class MessageFormatterHTML implements MessageFormatterInterface
     {
         return match ($type->value) {
             MessageTypesEnum::warning => "❗️❗️❗️" . $data['value'] . "❗️❗️❗️ ",
-            MessageTypesEnum::link => "<a href='{$data['link']}'>{$data['value']}</a> ",
+            MessageTypesEnum::link => "<a href='{$data['link']}'>{$data['value']}</a>",
             MessageTypesEnum::strong => "<b>" . $data['value'] . "</b>",
+            MessageTypesEnum::strongLink => "<b><a href='{$data['link']}'>{$data['value']}</a></b>",
             default => $data['value']
         };
     }

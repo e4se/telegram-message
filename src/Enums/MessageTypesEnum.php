@@ -8,6 +8,7 @@ final class MessageTypesEnum extends Enum
 {
     const warning = "warning";
     const strong = "strong";
+    const strongLink = "strongLink";
     const link = "link";
     const text = "text";
 }
