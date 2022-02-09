@@ -33,6 +33,16 @@ class Message
         return $this;
     }
 
+    public function strongLink(String $value, String $link): self
+    {
+        $this->data[] = [
+            'type' => MessageTypesEnum::strongLink(),
+            'value' => $value,
+            'link' => $link
+        ];
+        return $this;
+    }
+
     public function text(String $value): self
     {
         $this->data[] = [
