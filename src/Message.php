@@ -63,7 +63,7 @@ class Message
 
     public function image(String $value): self
     {
-        return $this->link("⁠"⁠, $value);
+        return $this->link("⁠", $value);
     }
 
     public function merge(self $message): self
