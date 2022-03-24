@@ -105,4 +105,11 @@ class Message
     {
         return $this->render();
     }
+    
+    public function when($condition, \Closure $closure) :self {
+        if ($condition) {
+            return $closure($this);
+        }
+        return $this;
+    }
 }
