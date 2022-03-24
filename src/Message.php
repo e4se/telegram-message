@@ -109,7 +109,7 @@ class Message
     public function when($condition, \Closure $closure, ?\Closure $default = null) :self {
         if ($condition) {
             return $closure($this) ?: $this;
-        } else {
+        } elseif ($default) {
             return $default($this) ?: $this;
         }
 
