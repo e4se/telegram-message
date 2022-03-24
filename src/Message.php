@@ -106,10 +106,13 @@ class Message
         return $this->render();
     }
     
-    public function when($condition, \Closure $closure) :self {
+    public function when($condition, \Closure $closure, ?\Closure $default = null) :self {
         if ($condition) {
-            return $closure($this);
+            return $closure($this) ?: $this;
+        } else {
+            return $default($this) ?: $this;
         }
+
         return $this;
     }
 }
