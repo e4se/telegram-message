@@ -87,16 +87,9 @@ class Message
         return $message;
     }
     
-    public function each(array $values) : self {
+    public function each(array $values, ?\Closure $closure = null) : self {
         foreach ($values as $value) {
-            $this->line($value);
-        }
-        return $this;
-    }
-
-    public function strongEach(array $values) : self {
-        foreach ($values as $value) {
-            $this->line()->strong($value);
+            $this->when($closure, fn () => $closure($this, $value), fn () => $this->line($value));
         }
         return $this;
     }
