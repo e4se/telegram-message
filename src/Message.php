@@ -86,6 +86,20 @@ class Message
         }
         return $message;
     }
+    
+    public function each(array $values) : self {
+        foreach ($values as $value) {
+            $this->line($value);
+        }
+        return $this;
+    }
+
+    public function strongEach(array $values) : self {
+        foreach ($values as $value) {
+            $this->line()->strong($value);
+        }
+        return $this;
+    }
 
     public function listItem(String $firstValue, String $secondValue): self
     {
