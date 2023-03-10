@@ -11,4 +11,5 @@ final class MessageTypesEnum extends Enum
     const strongLink = "strongLink";
     const link = "link";
     const text = "text";
+    const code = "code";
 }

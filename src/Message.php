@@ -14,6 +14,15 @@ class Message
         return $this->text("\n" . $value);
     }
 
+    public function code(String $value): self
+    {
+        $this->data[] = [
+            'type' => MessageTypesEnum::code(),
+            'value' => $value
+        ];
+        return $this;
+    }
+
     public function strong(String $value): self
     {
         $this->data[] = [

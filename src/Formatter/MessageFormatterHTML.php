@@ -18,6 +18,7 @@ class MessageFormatterHTML implements MessageFormatterInterface
             MessageTypesEnum::link => "<a href='{$data['link']}'>{$data['value']}</a> ",
             MessageTypesEnum::strong => "<b>" . $data['value'] . "</b>",
             MessageTypesEnum::strongLink => "<b><a href='{$data['link']}'>{$data['value']}</a></b>",
+            MessageTypesEnum::code => "<code>" . $data['value'] . "</code>",
             default => $data['value']
         };
     }
