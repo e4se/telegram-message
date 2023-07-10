@@ -97,8 +97,8 @@ class Message
     }
     
     public function each(array $values, ?\Closure $closure = null) : self {
-        foreach ($values as $value) {
-            $this->when($closure, fn () => $closure($this, $value), fn () => $this->line($value));
+        foreach ($values as $key => $value) {
+            $this->when($closure, fn () => $closure($this, $value, $key), fn () => $this->line($value));
         }
         return $this;
     }
