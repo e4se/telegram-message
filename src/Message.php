@@ -9,11 +9,10 @@ use E4se\TelegramMessage\Elements\Strong;
 use E4se\TelegramMessage\Elements\Text;
 use E4se\TelegramMessage\Elements\Underline;
 use E4se\TelegramMessage\Elements\Warning;
-use E4se\TelegramMessage\Enums\MessageTypesEnum;
-use E4se\TelegramMessage\Facades\MessageFormatter;
 
 class Message implements \Stringable
 {
+
     private $data = [];
 
     public function line(String $value = ""): self
