@@ -2,10 +2,17 @@
 
 namespace E4se\TelegramMessage;
 
+use E4se\TelegramMessage\Elements\Code;
+use E4se\TelegramMessage\Elements\Element;
+use E4se\TelegramMessage\Elements\Link;
+use E4se\TelegramMessage\Elements\Strong;
+use E4se\TelegramMessage\Elements\Text;
+use E4se\TelegramMessage\Elements\Underline;
+use E4se\TelegramMessage\Elements\Warning;
 use E4se\TelegramMessage\Enums\MessageTypesEnum;
 use E4se\TelegramMessage\Facades\MessageFormatter;
 
-class Message
+class Message implements \Stringable
 {
     private $data = [];
 
@@ -16,63 +23,92 @@ class Message
 
     public function code(String $value): self
     {
-        $this->data[] = [
-            'type' => MessageTypesEnum::code(),
-            'value' => $value
-        ];
+        $this->add(
+            new Code(
+                value: $value
+            )
+        );
         return $this;
     }
 
     public function strong(String $value): self
     {
-        $this->data[] = [
-            'type' => MessageTypesEnum::strong(),
-            'value' => $value
-        ];
+        $this->add(
+            new Strong(
+                value: $value
+            )
+        );
         return $this;
     }
 
     public function link(String $value, String $link): self
     {
-        $this->data[] = [
-            'type' => MessageTypesEnum::link(),
-            'value' => $value,
-            'link' => $link
-        ];
+        $this->add(
+            new Link(
+                value: $value,
+                link: $link
+            )
+        );
         return $this;
     }
 
     public function strongLink(String $value, String $link): self
     {
-        $this->data[] = [
-            'type' => MessageTypesEnum::strongLink(),
-            'value' => $value,
-            'link' => $link
-        ];
+        $this->add(
+            new Strong(
+                value: new Link(
+                    value: $value,
+                    link: $link
+                )
+            )
+        );
+
         return $this;
     }
 
     public function text(String $value): self
     {
-        $this->data[] = [
-            'type' => MessageTypesEnum::text(),
-            'value' => $value
-        ];
+        $this->add(
+            new Text(
+                value: $value
+            )
+        );
         return $this;
     }
 
     public function warning(String $value): self
     {
-        $this->data[] = [
-            'type' => MessageTypesEnum::warning(),
-            'value' => $value
-        ];
+        $this->add(
+            new Warning(
+                value: $value
+            )
+        );
+        return $this;
+    }
+
+    public function underline(String $value): self
+    {
+        $this->add(
+            new Underline(
+                value: $value
+            )
+        );
         return $this;
     }
 
     public function image(String $value): self
     {
-        return $this->link("⁠", $value);
+        $this->add(
+            new Link(
+                value: "⁠",
+                link: $value
+            )
+        );
+    }
+
+    public function add(Element $element): self{
+        $this->data[] = $element;
+        return $this;
     }
 
     public function merge(self $message): self
@@ -89,13 +125,12 @@ class Message
     public function render(): String
     {
         $message = "";
-        foreach ($this->data as $data) {
-            $data['value'] = htmlspecialchars($data['value']);
-            $message .= MessageFormatter::render($data['type'], $data);
+        foreach ($this->data as $element) {
+            $message .= $element->render();
         }
         return $message;
     }
-    
+
     public function each(array $values, ?\Closure $closure = null) : self {
         foreach ($values as $key => $value) {
             $this->when($closure, fn () => $closure($this, $value, $key), fn () => $this->line($value));
@@ -121,7 +156,7 @@ class Message
     {
         return $this->render();
     }
-    
+
     public function when($condition, \Closure $closure, ?\Closure $default = null) :self {
         if ($condition) {
             return $closure($this) ?: $this;

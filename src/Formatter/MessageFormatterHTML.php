@@ -2,6 +2,12 @@
 
 namespace E4se\TelegramMessage\Formatter;
 
+use E4se\TelegramMessage\Elements\Code;
+use E4se\TelegramMessage\Elements\Element;
+use E4se\TelegramMessage\Elements\Link;
+use E4se\TelegramMessage\Elements\Strong;
+use E4se\TelegramMessage\Elements\Underline;
+use E4se\TelegramMessage\Elements\Warning;
 use E4se\TelegramMessage\Enums\MessageTypesEnum;
 
 class MessageFormatterHTML implements MessageFormatterInterface
@@ -11,15 +17,15 @@ class MessageFormatterHTML implements MessageFormatterInterface
         return "HTML";
     }
 
-    public function render(MessageTypesEnum $type, array $data): string
+    public function render(Element $element): string
     {
-        return match ($type->value) {
-            MessageTypesEnum::warning => "<b>❗️❗️❗️" . $data['value'] . "❗️❗️❗️ </b>",
-            MessageTypesEnum::link => "<a href='{$data['link']}'>{$data['value']}</a> ",
-            MessageTypesEnum::strong => "<b>" . $data['value'] . "</b>",
-            MessageTypesEnum::strongLink => "<b><a href='{$data['link']}'>{$data['value']}</a></b>",
-            MessageTypesEnum::code => "<code>" . $data['value'] . "</code>",
-            default => $data['value']
+        return match (get_class($element)) {
+            Warning::class => "<b>❗️❗️❗️{$element}❗️❗️❗️ </b>",
+            Link::class => "<a href='{$element->link}'>{$element}</a> ",
+            Strong::class => "<b>{$element}</b>",
+            Code::class => "<code>{$element}</code>",
+            Underline::class => "<u>{$element}</u>",
+            default => "{$element}"
         };
     }
 }

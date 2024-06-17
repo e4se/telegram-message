@@ -31,9 +31,7 @@
             }
         }
     },
-    "require": {
-        "bensampo/laravel-enum": ">=4.2"
-    },
+    "require": {},
     "minimum-stability": "dev",
     "prefer-stable": true
 }
