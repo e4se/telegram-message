@@ -2,6 +2,7 @@
 
 namespace E4se\TelegramMessage\Formatter;
 
+use E4se\TelegramMessage\Elements\Blockquote;
 use E4se\TelegramMessage\Elements\Code;
 use E4se\TelegramMessage\Elements\Element;
 use E4se\TelegramMessage\Elements\Link;
@@ -25,6 +26,7 @@ class MessageFormatterHTML implements MessageFormatterInterface
             Strong::class => "<b>{$element}</b>",
             Code::class => "<code>{$element}</code>",
             Underline::class => "<u>{$element}</u>",
+            Blockquote::class => "<blockquote>{$element}</blockquote>",
             default => "{$element}"
         };
     }
