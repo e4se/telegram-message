@@ -103,6 +103,7 @@ class Message implements \Stringable
                 link: $value
             )
         );
+        return $this;
     }
 
     public function add(Element $element): self{
