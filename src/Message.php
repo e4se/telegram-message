@@ -15,12 +15,12 @@ class Message implements \Stringable
 
     private $data = [];
 
-    public function line(String $value = ""): self
+    public function line(String | Element $value = ""): self
     {
-        return $this->text("\n" . $value);
+        return $this->text("\n")->text($value);
     }
 
-    public function code(String $value): self
+    public function code(String | Element $value): self
     {
         $this->add(
             new Code(
@@ -30,7 +30,7 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function strong(String $value): self
+    public function strong(String | Element $value): self
     {
         $this->add(
             new Strong(
@@ -40,7 +40,7 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function link(String $value, String $link): self
+    public function link(String | Element $value, String $link): self
     {
         $this->add(
             new Link(
@@ -51,7 +51,7 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function strongLink(String $value, String $link): self
+    public function strongLink(String | Element $value, String $link): self
     {
         $this->add(
             new Strong(
@@ -65,7 +65,7 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function text(String $value): self
+    public function text(String | Element $value): self
     {
         $this->add(
             new Text(
@@ -75,7 +75,7 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function warning(String $value): self
+    public function warning(String | Element $value): self
     {
         $this->add(
             new Warning(
@@ -85,7 +85,7 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function underline(String $value): self
+    public function underline(String | Element $value): self
     {
         $this->add(
             new Underline(
@@ -139,7 +139,7 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function listItem(String $firstValue, String $secondValue): self
+    public function listItem(String | Element $firstValue, String | Element $secondValue): self
     {
         return $this->line($firstValue)->text(": ")->strong($secondValue);
     }
