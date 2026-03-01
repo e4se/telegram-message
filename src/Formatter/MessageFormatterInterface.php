@@ -8,5 +8,5 @@ use E4se\TelegramMessage\Enums\MessageTypesEnum;
 interface MessageFormatterInterface
 {
     public function getFormat(): string;
-    public function render(Element $type): string;
+    public function render(Element $element): string;
 }

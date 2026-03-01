@@ -4,7 +4,9 @@ namespace E4se\TelegramMessage\Formatter;
 
 use E4se\TelegramMessage\Elements\Blockquote;
 use E4se\TelegramMessage\Elements\Code;
+use E4se\TelegramMessage\Elements\Datetime;
 use E4se\TelegramMessage\Elements\Element;
+use E4se\TelegramMessage\Elements\Emoji;
 use E4se\TelegramMessage\Elements\Link;
 use E4se\TelegramMessage\Elements\Strong;
 use E4se\TelegramMessage\Elements\Underline;
@@ -27,6 +29,8 @@ class MessageFormatterHTML implements MessageFormatterInterface
             Code::class => "<code>{$element}</code>",
             Underline::class => "<u>{$element}</u>",
             Blockquote::class => "<blockquote>{$element}</blockquote>",
+            Emoji::class => "<tg-emoji emoji-id='{$element->emoji_id}'>{$element}</tg-emoji>",
+            Datetime::class =>  "<tg-time unix='{$element->datetime}' format='{$element->format}'>{$element}</tg-time>",
             default => "{$element}"
         };
     }

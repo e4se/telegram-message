@@ -3,7 +3,9 @@
 namespace E4se\TelegramMessage;
 
 use E4se\TelegramMessage\Elements\Code;
+use E4se\TelegramMessage\Elements\Datetime;
 use E4se\TelegramMessage\Elements\Element;
+use E4se\TelegramMessage\Elements\Emoji;
 use E4se\TelegramMessage\Elements\Link;
 use E4se\TelegramMessage\Elements\Strong;
 use E4se\TelegramMessage\Elements\Text;
@@ -149,6 +151,31 @@ class Message implements \Stringable
         foreach ($values as $left => $right) {
             $this->listItem($left, $right);
         }
+        return $this;
+    }
+
+    public function emoji(String $value, int $emoji_id): self
+    {
+        $this->add(
+            new Emoji(
+                value: $value,
+                emoji_id: $emoji_id
+            )
+        );
+
+        return $this;
+    }
+
+    public function datetime(String $value, int $datetime, string $format): self
+    {
+        $this->add(
+            new Datetime(
+                value: $value,
+                datetime: $datetime,
+                format: $format
+            )
+        );
+
         return $this;
     }
 
