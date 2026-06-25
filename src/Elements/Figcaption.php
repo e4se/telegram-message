@@ -2,7 +2,7 @@
 
 namespace E4se\TelegramMessage\Elements;
 
-class Blockquote extends Element
+class Figcaption extends Element
 {
     /**
      * @param string|Element|array<int, string|Element>|null $value

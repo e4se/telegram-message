@@ -2,16 +2,18 @@
 
 namespace E4se\TelegramMessage\Elements;
 
-class Blockquote extends Element
+class Heading extends Element
 {
     /**
      * @param string|Element|array<int, string|Element>|null $value
-     * @param string|Element|array<int, string|Element>|null $credit
      */
     public function __construct(
         public readonly string | Element | array | null $value,
-        public readonly string | Element | array | null $credit = null,
+        public readonly int $level = 1,
     )
     {
+        if ($level < 1 || $level > 6) {
+            throw new \InvalidArgumentException('Heading level must be between 1 and 6.');
+        }
     }
 }
