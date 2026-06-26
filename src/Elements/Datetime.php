@@ -4,10 +4,13 @@ namespace E4se\TelegramMessage\Elements;
 
 class Datetime extends Element
 {
+    /**
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
+     */
     public function __construct(
-        public readonly string | Element  $value,
-        public readonly int  $datetime,
-        public readonly string  $format,
+        public readonly string | \Stringable | array | null $value,
+        public readonly int $datetime,
+        public readonly string $format,
     )
     {
     }
