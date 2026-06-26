@@ -7,10 +7,10 @@ use E4se\TelegramMessage\Facades\MessageFormatter;
 class Element implements \Stringable
 {
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
     public function __construct(
-        public readonly string | Element | array | null $value = '',
+        public readonly string | \Stringable | array | null $value = '',
     )
     {
     }
@@ -26,9 +26,9 @@ class Element implements \Stringable
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public static function renderValue(string | Element | array | null $value): string
+    public static function renderValue(string | \Stringable | array | null $value): string
     {
         if ($value === null) {
             return '';
@@ -40,9 +40,13 @@ class Element implements \Stringable
 
         if (is_array($value)) {
             return implode('', array_map(
-                fn (string | Element | array | null $part): string => self::renderValue($part),
+                fn (string | \Stringable | array | null $part): string => self::renderValue($part),
                 $value
             ));
+        }
+
+        if ($value instanceof \Stringable) {
+            return (string) $value;
         }
 
         return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');

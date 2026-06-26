@@ -5,10 +5,10 @@ namespace E4se\TelegramMessage\Elements;
 class TableCell extends Element
 {
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
     public function __construct(
-        public readonly string | Element | array | null $value = null,
+        public readonly string | \Stringable | array | null $value = null,
         public readonly bool $isHeader = false,
         public readonly ?int $colspan = null,
         public readonly ?int $rowspan = null,

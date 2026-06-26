@@ -2,19 +2,31 @@
 
 namespace E4se\TelegramMessage\Elements;
 
+use E4se\TelegramMessage\Message;
+
 class Slideshow extends Element
 {
     /**
-     * @param array<int, Element> $blocks
-     * @param string|Element|array<int, string|Element>|null $caption
-     * @param string|Element|array<int, string|Element>|null $credit
+     * @param string|\Stringable|array<int, Element>|null $value
      */
     public function __construct(
-        public readonly array $blocks,
-        public readonly string | Element | array | null $caption = null,
-        public readonly string | Element | array | null $credit = null,
+        string | \Stringable | array | null $value
     )
     {
-        parent::__construct('');
+        parent::__construct(is_array($value) ? self::messageFromBlocks($value) : $value);
+    }
+
+    /**
+     * @param array<int, Element> $blocks
+     */
+    private static function messageFromBlocks(array $blocks): Message
+    {
+        $message = new Message();
+
+        foreach ($blocks as $block) {
+            $message->add($block);
+        }
+
+        return $message;
     }
 }

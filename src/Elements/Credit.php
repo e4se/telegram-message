@@ -2,6 +2,6 @@
 
 namespace E4se\TelegramMessage\Elements;
 
-class Cite extends Element
+class Credit extends Element
 {
 }

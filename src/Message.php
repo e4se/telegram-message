@@ -6,15 +6,16 @@ use E4se\TelegramMessage\Elements\Anchor;
 use E4se\TelegramMessage\Elements\Animation;
 use E4se\TelegramMessage\Elements\Audio;
 use E4se\TelegramMessage\Elements\Blockquote;
+use E4se\TelegramMessage\Elements\Caption;
 use E4se\TelegramMessage\Elements\Checkbox;
 use E4se\TelegramMessage\Elements\Code;
 use E4se\TelegramMessage\Elements\Collage;
+use E4se\TelegramMessage\Elements\Credit;
 use E4se\TelegramMessage\Elements\Datetime;
 use E4se\TelegramMessage\Elements\Details;
 use E4se\TelegramMessage\Elements\Divider;
 use E4se\TelegramMessage\Elements\Element;
 use E4se\TelegramMessage\Elements\Emoji;
-use E4se\TelegramMessage\Elements\EmojiImage;
 use E4se\TelegramMessage\Elements\Figure;
 use E4se\TelegramMessage\Elements\Footer;
 use E4se\TelegramMessage\Elements\Heading;
@@ -22,6 +23,7 @@ use E4se\TelegramMessage\Elements\Italic;
 use E4se\TelegramMessage\Elements\LineBreak;
 use E4se\TelegramMessage\Elements\Link;
 use E4se\TelegramMessage\Elements\ListBlock;
+use E4se\TelegramMessage\Elements\ListItem;
 use E4se\TelegramMessage\Elements\Map as MapElement;
 use E4se\TelegramMessage\Elements\Marked;
 use E4se\TelegramMessage\Elements\MathematicalExpression;
@@ -29,6 +31,7 @@ use E4se\TelegramMessage\Elements\MathBlock;
 use E4se\TelegramMessage\Elements\Paragraph;
 use E4se\TelegramMessage\Elements\Photo;
 use E4se\TelegramMessage\Elements\Preformatted;
+use E4se\TelegramMessage\Elements\PreformattedCode;
 use E4se\TelegramMessage\Elements\PullQuote;
 use E4se\TelegramMessage\Elements\Reference;
 use E4se\TelegramMessage\Elements\Slideshow;
@@ -38,6 +41,8 @@ use E4se\TelegramMessage\Elements\Strong;
 use E4se\TelegramMessage\Elements\Subscript;
 use E4se\TelegramMessage\Elements\Superscript;
 use E4se\TelegramMessage\Elements\Table;
+use E4se\TelegramMessage\Elements\TableCaption;
+use E4se\TelegramMessage\Elements\TableRow;
 use E4se\TelegramMessage\Elements\Text;
 use E4se\TelegramMessage\Elements\Thinking;
 use E4se\TelegramMessage\Elements\Underline;
@@ -53,89 +58,89 @@ class Message implements \Stringable
     private array $data = [];
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function line(string | Element | array | null $value = ""): self
+    public function line(string | \Stringable | array | null $value = ""): self
     {
         return $this->text("\n")->text($value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function code(string | Element | array | null $value): self
+    public function code(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Code::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function strong(string | Element | array | null $value): self
+    public function strong(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Strong::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function bold(string | Element | array | null $value): self
+    public function bold(string | \Stringable | array | null $value): self
     {
         return $this->strong($value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function italic(string | Element | array | null $value): self
+    public function italic(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Italic::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function strikethrough(string | Element | array | null $value): self
+    public function strikethrough(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Strikethrough::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function marked(string | Element | array | null $value): self
+    public function marked(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Marked::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function subscript(string | Element | array | null $value): self
+    public function subscript(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Subscript::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function superscript(string | Element | array | null $value): self
+    public function superscript(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Superscript::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function spoiler(string | Element | array | null $value): self
+    public function spoiler(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Spoiler::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function link(string | Element | array | null $value, string $link): self
+    public function link(string | \Stringable | array | null $value, string $link): self
     {
         $this->add(
             new Link(
@@ -147,9 +152,9 @@ class Message implements \Stringable
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function strongLink(string | Element | array | null $value, string $link): self
+    public function strongLink(string | \Stringable | array | null $value, string $link): self
     {
         $this->add(
             new Strong(
@@ -164,25 +169,25 @@ class Message implements \Stringable
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function text(string | Element | array | null $value): self
+    public function text(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Text::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function warning(string | Element | array | null $value): self
+    public function warning(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Warning::class, $value);
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function underline(string | Element | array | null $value): self
+    public function underline(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Underline::class, $value);
     }
@@ -194,9 +199,9 @@ class Message implements \Stringable
     }
 
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    public function reference(string | Element | array | null $value, string $name): self
+    public function reference(string | \Stringable | array | null $value, string $name): self
     {
         $this->add(new Reference($value, $name));
         return $this;
@@ -214,24 +219,65 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function heading(string | Element | array | null $value, int $level = 1): self
+    public function heading(string | \Stringable | array | null $value, int $level = 1): self
     {
         $this->add(new Heading($value, $level));
         return $this;
     }
 
-    public function paragraph(string | Element | array | null $value): self
+    public function h1(string | \Stringable | array | null $value): self
+    {
+        return $this->heading($value, 1);
+    }
+
+    public function h2(string | \Stringable | array | null $value): self
+    {
+        return $this->heading($value, 2);
+    }
+
+    public function h3(string | \Stringable | array | null $value): self
+    {
+        return $this->heading($value, 3);
+    }
+
+    public function h4(string | \Stringable | array | null $value): self
+    {
+        return $this->heading($value, 4);
+    }
+
+    public function h5(string | \Stringable | array | null $value): self
+    {
+        return $this->heading($value, 5);
+    }
+
+    public function h6(string | \Stringable | array | null $value): self
+    {
+        return $this->heading($value, 6);
+    }
+
+    public function paragraph(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Paragraph::class, $value);
     }
 
-    public function pre(string | Element | array | null $value, ?string $language = null): self
+    public function pre(string | \Stringable | array | null $value): self
     {
-        $this->add(new Preformatted($value, $language));
+        $this->add(new Preformatted($value));
         return $this;
     }
 
-    public function footer(string | Element | array | null $value): self
+    public function preCode(string | \Stringable | array | null $value, string $language): self
+    {
+        $this->add(new PreformattedCode($value, $language));
+        return $this;
+    }
+
+    public function codeBlock(string | \Stringable | array | null $value, string $language): self
+    {
+        return $this->preCode($value, $language);
+    }
+
+    public function footer(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Footer::class, $value);
     }
@@ -240,6 +286,11 @@ class Message implements \Stringable
     {
         $this->add(new Divider());
         return $this;
+    }
+
+    public function hr(): self
+    {
+        return $this->divider();
     }
 
     public function br(): self
@@ -254,51 +305,114 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function math(string | Element | array | null $value): self
+    /**
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
+     */
+    public function checkboxItem(string | \Stringable | array | null $value, bool $checked = false, ?int $valueNumber = null, ?string $type = null): self
+    {
+        $this->add(
+            new ListItem(
+                self::create()->checkbox($checked)->text($value),
+                $valueNumber,
+                $type
+            )
+        );
+
+        return $this;
+    }
+
+    public function caption(string | \Stringable | array | null $value, string | \Stringable | array | null $credit = null): self
+    {
+        if ($credit === null) {
+            $this->add(new Caption($value));
+            return $this;
+        }
+
+        $caption = self::create();
+
+        if ($value !== null) {
+            $caption->text($value);
+        }
+
+        $this->add(new Caption($caption->credit($credit)));
+
+        return $this;
+    }
+
+    public function credit(string | \Stringable | array | null $value): self
+    {
+        return $this->addValueElement(Credit::class, $value);
+    }
+
+    public function math(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(MathematicalExpression::class, $value);
     }
 
-    public function mathBlock(string | Element | array | null $value): self
+    public function mathBlock(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(MathBlock::class, $value);
     }
 
-    public function blockquote(string | Element | array | null $value, string | Element | array | null $credit = null): self
+    public function blockquote(string | \Stringable | array | null $value, string | \Stringable | array | null $credit = null): self
     {
-        $this->add(new Blockquote($value, $credit));
+        if ($credit === null) {
+            $this->add(new Blockquote($value));
+            return $this;
+        }
+
+        $message = self::create();
+
+        if ($value !== null) {
+            $message->text($value);
+        }
+
+        $this->add(new Blockquote($message->credit($credit)));
+
         return $this;
     }
 
-    public function pullQuote(string | Element | array | null $value, string | Element | array | null $credit = null): self
+    public function pullQuote(string | \Stringable | array | null $value, string | \Stringable | array | null $credit = null): self
     {
-        $this->add(new PullQuote($value, $credit));
+        if ($credit === null) {
+            $this->add(new PullQuote($value));
+            return $this;
+        }
+
+        $message = self::create();
+
+        if ($value !== null) {
+            $message->text($value);
+        }
+
+        $this->add(new PullQuote($message->credit($credit)));
+
         return $this;
     }
 
     /**
-     * @param array<int, \E4se\TelegramMessage\Elements\ListItem|string|Element|array<int, string|Element>> $items
+     * @param string|\Stringable|array<int, \E4se\TelegramMessage\Elements\ListItem|string|\Stringable|array<int, string|\Stringable>>|null $value
      */
-    public function richList(array $items, bool $ordered = false, ?int $start = null, ?string $type = null, bool $reversed = false): self
+    public function richList(string | \Stringable | array | null $value, bool $ordered = false, ?int $start = null, ?string $type = null, bool $reversed = false): self
     {
-        $this->add(new ListBlock($items, $ordered, $start, $type, $reversed));
+        $this->add(new ListBlock($value, $ordered, $start, $type, $reversed));
         return $this;
     }
 
     /**
-     * @param array<int, \E4se\TelegramMessage\Elements\ListItem|string|Element|array<int, string|Element>> $items
+     * @param string|\Stringable|array<int, \E4se\TelegramMessage\Elements\ListItem|string|\Stringable|array<int, string|\Stringable>>|null $value
      */
-    public function unorderedList(array $items): self
+    public function unorderedList(string | \Stringable | array | null $value): self
     {
-        return $this->richList($items);
+        return $this->richList($value);
     }
 
     /**
-     * @param array<int, \E4se\TelegramMessage\Elements\ListItem|string|Element|array<int, string|Element>> $items
+     * @param string|\Stringable|array<int, \E4se\TelegramMessage\Elements\ListItem|string|\Stringable|array<int, string|\Stringable>>|null $value
      */
-    public function orderedList(array $items, ?int $start = null, ?string $type = null, bool $reversed = false): self
+    public function orderedList(string | \Stringable | array | null $value, ?int $start = null, ?string $type = null, bool $reversed = false): self
     {
-        return $this->richList($items, true, $start, $type, $reversed);
+        return $this->richList($value, true, $start, $type, $reversed);
     }
 
     public function photo(string $src, bool $hasSpoiler = false, ?string $alt = null): self
@@ -337,46 +451,98 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function figure(Element $block, string | Element | array | null $caption = null, string | Element | array | null $credit = null): self
+    public function figure(Element $block, string | \Stringable | array | null $caption = null, string | \Stringable | array | null $credit = null): self
     {
-        $this->add(new Figure($block, $caption, $credit));
+        return $this->addFigure($block, $caption, $credit);
+    }
+
+    public function addFigure(Element $block, string | \Stringable | array | null $caption = null, string | \Stringable | array | null $credit = null): self
+    {
+        $figure = self::create()->add($block);
+
+        if ($caption !== null || $credit !== null) {
+            $figure->caption($caption, $credit);
+        }
+
+        $this->add(new Figure($figure));
+
         return $this;
     }
 
     /**
-     * @param array<int, Element> $blocks
+     * @param string|\Stringable|array<int, Element>|null $value
      */
-    public function collage(array $blocks, string | Element | array | null $caption = null, string | Element | array | null $credit = null): self
+    public function collage(string | \Stringable | array | null $value, string | \Stringable | array | null $caption = null, string | \Stringable | array | null $credit = null): self
     {
-        $this->add(new Collage($blocks, $caption, $credit));
+        if ($caption === null && $credit === null) {
+            $this->add(new Collage($value));
+            return $this;
+        }
+
+        $collage = self::create();
+
+        if ($value !== null) {
+            $collage->text($value);
+        }
+
+        $this->add(new Collage($collage->caption($caption, $credit)));
+
         return $this;
     }
 
     /**
-     * @param array<int, Element> $blocks
+     * @param string|\Stringable|array<int, Element>|null $value
      */
-    public function slideshow(array $blocks, string | Element | array | null $caption = null, string | Element | array | null $credit = null): self
+    public function slideshow(string | \Stringable | array | null $value, string | \Stringable | array | null $caption = null, string | \Stringable | array | null $credit = null): self
     {
-        $this->add(new Slideshow($blocks, $caption, $credit));
+        if ($caption === null && $credit === null) {
+            $this->add(new Slideshow($value));
+            return $this;
+        }
+
+        $slideshow = self::create();
+
+        if ($value !== null) {
+            $slideshow->text($value);
+        }
+
+        $this->add(new Slideshow($slideshow->caption($caption, $credit)));
+
         return $this;
     }
 
-    public function details(string | Element | array | null $summary, string | Element | array | null $value, bool $open = false): self
+    public function details(string | \Stringable | array | null $summary, string | \Stringable | array | null $value, bool $open = false): self
     {
         $this->add(new Details($summary, $value, $open));
         return $this;
     }
 
     /**
-     * @param array<int, \E4se\TelegramMessage\Elements\TableRow|array<int, \E4se\TelegramMessage\Elements\TableCell|string|Element|array<int, string|Element>>> $rows
+     * @param string|\Stringable|array<int, \E4se\TelegramMessage\Elements\TableRow|array<int, \E4se\TelegramMessage\Elements\TableCell|string|\Stringable|array<int, string|\Stringable>>>|null $value
      */
-    public function table(array $rows, bool $bordered = false, bool $striped = false, string | Element | array | null $caption = null): self
+    public function table(string | \Stringable | array | null $value, bool $bordered = false, bool $striped = false, string | \Stringable | array | null $caption = null): self
     {
-        $this->add(new Table($rows, $bordered, $striped, $caption));
+        if ($caption === null) {
+            $this->add(new Table($value, $bordered, $striped));
+            return $this;
+        }
+
+        $table = self::create()->add(new TableCaption($caption));
+
+        if (is_array($value)) {
+            foreach ($value as $row) {
+                $table->add($row instanceof TableRow ? $row : new TableRow($row));
+            }
+        } elseif ($value !== null) {
+            $table->text($value);
+        }
+
+        $this->add(new Table($table, $bordered, $striped));
+
         return $this;
     }
 
-    public function thinking(string | Element | array | null $value): self
+    public function thinking(string | \Stringable | array | null $value): self
     {
         return $this->addValueElement(Thinking::class, $value);
     }
@@ -427,7 +593,7 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function emoji(string | Element | array | null $value, int | string $emoji_id): self
+    public function emoji(string | \Stringable | array | null $value, int | string $emoji_id): self
     {
         $this->add(
             new Emoji(
@@ -439,13 +605,7 @@ class Message implements \Stringable
         return $this;
     }
 
-    public function emojiImage(int | string $emojiId, string $alt): self
-    {
-        $this->add(new EmojiImage($emojiId, $alt));
-        return $this;
-    }
-
-    public function datetime(string | Element | array | null $value, int $datetime, string $format): self
+    public function datetime(string | \Stringable | array | null $value, int $datetime, string $format): self
     {
         $this->add(
             new Datetime(
@@ -490,9 +650,9 @@ class Message implements \Stringable
 
     /**
      * @param class-string<Element> $elementClass
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
-    private function addValueElement(string $elementClass, string | Element | array | null $value): self
+    private function addValueElement(string $elementClass, string | \Stringable | array | null $value): self
     {
         $this->add(new $elementClass($value));
         return $this;

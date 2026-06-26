@@ -5,10 +5,10 @@ namespace E4se\TelegramMessage\Elements;
 class Reference extends Element
 {
     /**
-     * @param string|Element|array<int, string|Element>|null $value
+     * @param string|\Stringable|array<int, string|\Stringable>|null $value
      */
     public function __construct(
-        public readonly string | Element | array | null $value,
+        public readonly string | \Stringable | array | null $value,
         public readonly string $name,
     )
     {
