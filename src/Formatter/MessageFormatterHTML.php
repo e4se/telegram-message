@@ -61,7 +61,7 @@ class MessageFormatterHTML implements MessageFormatterInterface
     {
         return match ($element::class) {
             Warning::class => "<b>❗️❗️❗️{$element}❗️❗️❗️ </b>",
-            Link::class => "<a href=\"{$this->escape($element->link)}\">{$element}</a> ",
+            Link::class => "<a href=\"{$this->escape($element->link)}\">{$element}</a>",
             Strong::class => "<b>{$element}</b>",
             Italic::class => "<i>{$element}</i>",
             Underline::class => "<u>{$element}</u>",
